@@ -1,18 +1,18 @@
 spring:
-  datasource:
-    url: jdbc:h2:mem:test1
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9094
+      group-id: test-kafka
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.example.util.CustomDeserializer
 
-  jpa:
-    generate-ddl: true
-    hibernate:
-      ddl-auto: none
+    producer:
+      bootstrap-servers: localhost:9094
+      value-serializer: org.example.util.CustomSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
 
-    properties:
-      hibernate:
-        format_sql: true
-
-    show-sql: false
-
-logging:
-  level:
-    ROOT: FATAL
+topic:
+  name:
+    producer: topic-test-1
+    consumer: topic-test-1
